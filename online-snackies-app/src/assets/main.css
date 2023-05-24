@@ -1,0 +1,15 @@
+@import './base.css';
+
+#app {
+  
+  max-width: 325px;
+  margin: 0 auto;
+  max-width: 360px;
+  height: 800px;
+  background-color: #19181B;
+
+}
+
+
+
+
