@@ -1,30 +1,27 @@
-<script>
+<script setup>
+import { ref, onMounted } from 'vue'
 
-import axios from 'axios';
-export default {
-    data() {
-        return {
-            apiData: null,
-        };
-    },
-    mounted() {
-        this.fetchData();
-    },
-    methods: {
-        fetchData() {
-            axios
-                .get('http://localhost:8080/api/products') // Replace with your API endpoint URL
-                .then(response => {
-                    this.apiData = response.data;
-                    // Handle the retrieved data as needed
-                })
-                .catch(error => {
-                    console.error('Error fetching data:', error);
-                    // Handle the error appropriately
-                });
-        },
-    },
-};
+import Product from '../components/Product.vue'
+import axios from 'axios'
+
+const apiData = ref(null)
+
+async function fetchData() {
+    axios
+        .get('http://localhost:8080/api/products')
+        .then(response => {
+            apiData.value = response.data;
+        })
+        .catch(error => {
+            console.error('Error fetching data:', error);
+        });
+}
+
+onMounted(() => {
+    fetchData();
+})
+
+
 </script>
 
 <template>
@@ -35,19 +32,9 @@ export default {
     </div>
 
     <section>
-        <article v-for="item in apiData" :key="item.id">
-            <div>
-                <img :src="item.image_path" alt="">
-            </div>
-            <div class="product_info">
-                <h3>{{ item.name }}</h3>
-                <p> prix : {{ item.price }} crédit(s)</p>
-                <button>acheter</button>
-            </div>
-            <div>
-                <img src="" alt="">
-            </div>
-        </article>
+        <Product v-for="item in apiData" :key="item.id" :id="item.id" :name="item.name" :price="item.price"
+            :img="item.image_path" :quantity="item.quantity">
+        </Product>
     </section>
 </template>
 
