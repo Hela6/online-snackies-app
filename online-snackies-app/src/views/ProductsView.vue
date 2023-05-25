@@ -34,44 +34,68 @@ export default {
         </form>
     </div>
 
-    <article v-for="item in apiData" :key="item.id">
-        <div>
-            <img :src="item.image_path" alt="">
-        </div>
-        <div>
-            <h3>{{ item.name }}</h3>
-            <p> prix : {{ item.price }} crédit(s)</p>
-            <button>acheter</button>
-        </div>
-        <div>
-            <img src="" alt="">
-        </div>
-
-    </article>
+    <section>
+        <article v-for="item in apiData" :key="item.id">
+            <div>
+                <img :src="item.image_path" alt="">
+            </div>
+            <div class="product_info">
+                <h3>{{ item.name }}</h3>
+                <p> prix : {{ item.price }} crédit(s)</p>
+                <button>acheter</button>
+            </div>
+            <div>
+                <img src="" alt="">
+            </div>
+        </article>
+    </section>
 </template>
 
 <style scoped>
+* {
+    border-radius: 10px;
+    font-weight: bold;
+    font-family: Nunito, sans-serif;
+}
+
 input {
     width: 335px;
     height: 36px;
-    border-radius: 10px;
+    margin: 10px;
+    padding: 10px;
+    border: none;
+}
+
+section {
+    background-color: #212529;
+    margin: 0px 10px 0px 10px;
 }
 
 article {
     display: flex;
     flex-direction: row;
-    padding: 10px;
-    font-family: Nunito, sans-serif;
+    padding: 7.5px;
 }
 
 img {
-    border-radius: 10px;
     margin-right: 10px;
 }
 
-button {
-    border-radius: 10px;
-    background-color: #A282CD;
+.product_info {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
 
+button {
+    width: 95px;
+    height: 25px;
+    background-color: #A282CD;
+    border: none;
+}
+
+button,
+p {
+    font-size: 12px;
 }
 </style>

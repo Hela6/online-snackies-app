@@ -1,13 +1,14 @@
 @import './base.css';
 
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Chango&display=swap');
+
 #app {
-  
   max-width: 325px;
   margin: 0 auto;
   max-width: 360px;
   height: 800px;
   background-color: #19181B;
-
 }
 
 

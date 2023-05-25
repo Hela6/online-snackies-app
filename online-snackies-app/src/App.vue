@@ -5,9 +5,14 @@ import { RouterLink } from 'vue-router'
 
 <template>
   <header>
-    <div><img src="" alt=""></div>
+    <div class="block_logo">
+      <div><img class='img_logo' src="../public/img/donut_logo.png" alt=""></div>
+      <p class="text_logo">ONLINE SNACKIES</p>
+    </div>
+
     <div>
-      <p></p>
+      <p>Nom Prénom</p>
+      <p>($ credits)</p>
     </div>
   </header>
 
@@ -26,39 +31,59 @@ import { RouterLink } from 'vue-router'
 
 
 <style scoped>
+.block_logo,
+header,
+main,
+nav {
+  display: flex;
+}
+
+nav,
 header {
-  height: 67.5px;
   width: 100%;
   background-color: #212529;
+  flex-direction: row;
+  color: #A282CD;
+}
+
+header {
+  height: 67.5px;
   border-bottom: 1px solid #A282CD;
+  justify-content: space-between;
+  padding: 15px;
+}
+
+.img_logo {
+  width: 38px;
+}
+
+.text_logo {
+  width: 123px;
+  font-size: 16px;
+  font-family: Chango, sans-serif;
+  text-align: center;
+  font-weight: 16px;
+}
+
+p {
+  font-family: Nunito, sans-serif;
 }
 
 main {
   background-color: #19181B;
   height: 676.5px;
-  display: flex;
   flex-direction: column;
-  padding: 10px;
 }
 
 nav {
-  width: 100%;
-  display: flex;
-  box-sizing: border-box;
   justify-content: space-evenly;
-  flex-direction: row;
   align-items: center;
-  margin: 0 auto;
-  padding: 30px;
-  position: sticky;
   bottom: 0;
-  z-index: 100;
-  background-color: #212529;
   height: 56px;
   border-top: 1px solid #A282CD;
 }
 
 .links {
-  width: 35px;
+  width: 30px;
 }
 </style>
