@@ -1,12 +1,22 @@
 <script setup>
+
+import { ref, defineProps } from 'vue';
+
 const props = defineProps({
   name: String,
   price: String,
   img: String,
-  id: String
+  id: String,
+  quantity: String,
+  emptyheart: String,
+  filledheart: String
 })
 
-// const productQuantity = ref(0);
+const isFilled = ref(false);
+
+const toggleHeart = () => {
+  isFilled.value = !isFilled.value;
+};
 
 async function decrementProductQuantity() {
   try {
@@ -18,7 +28,7 @@ async function decrementProductQuantity() {
 
     if (response.ok) {
       // Update the local product quantity variable
-      // productQuantity.value -= 1;
+
     } else {
       // Handle any errors or display an error message
     }
@@ -27,22 +37,25 @@ async function decrementProductQuantity() {
     // Handle any network or other errors
   }
 }
+
+
 </script>
 
 
 <template>
   <article>
+
     <div>
       <img :src="img" alt="">
     </div>
     <div class="product_info">
       <h3>{{ name }}</h3>
       <p> prix : {{ price }} crédit(s)</p>
-      <button @click="decrementProductQuantity">acheter</button>
-
+      <button @click="decrementProductQuantity">
+        {{ props.quantity <= '0' ? 'manquant' : 'acheter' }} </button>
     </div>
     <div>
-      <img src="" alt="">
+      <img class="fav" :src="isFilled ? filledheart : emptyheart" alt="" @click="toggleHeart" />
     </div>
   </article>
 </template>
@@ -70,17 +83,15 @@ section {
 article {
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
   padding: 7.5px;
-}
-
-img {
-  margin-right: 10px;
 }
 
 .product_info {
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
+  margin-right: 50px;
 }
 
 button {
@@ -93,5 +104,10 @@ button {
 button,
 p {
   font-size: 12px;
+}
+
+.fav {
+  width: 28px;
+  margin: 5px 5px auto auto;
 }
 </style>
