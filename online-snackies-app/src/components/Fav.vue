@@ -56,6 +56,7 @@ async function decrementProductQuantity() {
     </div>
     <div>
       <img class="fav" :src="isFilled ? filledHeartImage : emptyHeartImage" alt="" @click="toggleHeart" />
+      <!-- lorsque le user clique pour enlever le fav de sa liste, mettre à jour la base de données avec une nouvelle route API-->
     </div>
   </article>
 </template>

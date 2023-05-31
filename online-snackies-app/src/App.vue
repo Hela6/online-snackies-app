@@ -11,6 +11,7 @@ import { RouterLink } from 'vue-router'
     </div>
 
     <div>
+      <!-- afficher que lorsque le user est connecté-->
       <p>Nom Prénom</p>
       <p>($ credits)</p>
     </div>

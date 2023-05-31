@@ -1,7 +1,6 @@
 <script setup>
 import { ref, onMounted } from 'vue'
-import emptyHeartImage from "@/assets/img/empty_heart.png";
-import filledHeartImage from "@/assets/img/filled_heart.png";
+
 import Product from '../components/Product.vue'
 import axios from 'axios'
 
@@ -35,7 +34,7 @@ onMounted(() => {
 
     <section>
         <Product v-for="item in apiData" :key="item.id" :id="item.id" :name="item.name" :price="item.price"
-            :img="item.image_path" :quantity="item.quantity" :emptyheart="emptyHeartImage" :filledheart="filledHeartImage">
+            :img="item.image_path" :quantity="item.quantity">
         </Product>
     </section>
 </template>
@@ -56,35 +55,7 @@ input {
 }
 
 section {
-    background-color: #212529;
     margin: 0px 10px 0px 10px;
-}
 
-article {
-    display: flex;
-    flex-direction: row;
-    padding: 7.5px;
-}
-
-img {
-    margin-right: 10px;
-}
-
-.product_info {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-}
-
-button {
-    width: 95px;
-    height: 25px;
-    background-color: #A282CD;
-    border: none;
-}
-
-button,
-p {
-    font-size: 12px;
 }
 </style>
