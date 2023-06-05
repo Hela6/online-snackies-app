@@ -1,16 +1,22 @@
 <script setup>
-import { ref, onMounted } from 'vue'
 
-import Fav from '../components/Fav.vue'
+import { ref, onMounted } from 'vue'
+import Product from '../components/Product.vue'
 import axios from 'axios'
 
-const apiData = ref(null)
+// On récupère les favoris avec l'endpoint adapté
+const apiFavsProductData = ref(null)
 
-async function fetchData() {
+async function fetchFavsData() {
+
+    const userId = JSON.parse(localStorage.getItem("user")).id; // Retrieve user.id from local storage
     axios
-        .get('http://localhost:8080/api/fav')
+        .get(`http://localhost:8080/api/products/favs?id_employee=${userId}`)
         .then(response => {
-            apiData.value = response.data;
+            apiFavsProductData.value = response.data;
+            apiFavsProductData.value.forEach(product => {
+                product.isLiked = true;
+            })
         })
         .catch(error => {
             console.error('Error fetching data:', error);
@@ -18,9 +24,8 @@ async function fetchData() {
 }
 
 onMounted(() => {
-    fetchData();
+    fetchFavsData();
 })
-
 
 </script>
 
@@ -32,9 +37,9 @@ onMounted(() => {
     </div>
 
     <section>
-        <Fav v-for="item in apiData" :key="item.id" :id="item.id" :name="item.name" :price="item.price"
-            :img="item.image_path" :quantity="item.quantity">
-        </Fav>
+        <Product v-for="item in apiFavsProductData" :key="item.id" :id="item.id" :name="item.name" :price="item.price"
+            :img="item.image_path" :quantity="item.quantity" :isLiked="item.isLiked">
+        </Product>
     </section>
 </template>
 

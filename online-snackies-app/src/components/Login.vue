@@ -13,6 +13,7 @@ const submitForm = async (event) => {
         const response = await axios.post('http://localhost:8080/api/auth', { "email": email.value, "password": password.value });
         console.log(response.data)
 
+        localStorage.setItem("user", JSON.stringify(response.data))
         window.location.href = '/';
     } catch (error) {
         console.error(error); // Handle error

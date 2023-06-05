@@ -1,5 +1,29 @@
 <script setup>
-import { RouterLink } from 'vue-router'
+import { RouterLink, useRouter } from 'vue-router';
+import { ref } from 'vue';
+import logout from "@/assets/img/logout.png";
+
+const name = ref("");
+const credits = ref("");
+const id = ref("");
+
+let user = JSON.parse(localStorage.getItem("user"))
+if (user != null) {
+  name.value = user.name;
+  credits.value = user.credits;
+  id.value = user.id;
+}
+
+const router = useRouter();
+
+const redirectToLogin = () => {
+  localStorage.removeItem("user")
+  name.value = "";
+  credits.value = "";
+  id.value = "";
+  router.push({ path: '/login', name: 'login' });
+}
+
 </script>
 
 
@@ -11,10 +35,16 @@ import { RouterLink } from 'vue-router'
     </div>
 
     <div>
-      <!-- afficher que lorsque le user est connecté-->
-      <p>Nom Prénom</p>
-      <p>($ credits)</p>
+      <img class="logout" :src="logout" alt="" @click="redirectToLogin" />
     </div>
+
+    <div>
+      <!-- Only display when the user is connected and name and credits are not null -->
+      <p v-if="name !== ''">{{ name }}</p>
+      <p v-if="credits !== ''">{{ credits }} crédits</p>
+    </div>
+
+
   </header>
 
   <main>
@@ -56,6 +86,10 @@ header {
 
 .img_logo {
   width: 38px;
+}
+
+.logout {
+  width: 20px;
 }
 
 .text_logo {

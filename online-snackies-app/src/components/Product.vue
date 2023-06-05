@@ -10,13 +10,47 @@ const props = defineProps({
   img: String,
   id: String,
   quantity: String,
+  isLiked: Boolean
 })
 
-const isFilled = ref(false);
 
-const toggleHeart = () => {
-  isFilled.value = !isFilled.value;
+const isFav = ref(props.isLiked);
+
+const toggleHeart = async () => {
+  if (!isFav.value) {
+    addToFavs();
+    isFav.value = true;
+  } else {
+    removeFromFavs();
+    isFav.value = false;
+  }
 };
+
+
+const userId = JSON.parse(localStorage.getItem("user"))?.id;
+
+async function addToFavs() {
+  try {
+    const response = await fetch(`http://localhost:8080/api/products/addToFavs?id_product=${props.id}&id_employee=${userId}`);
+    if (!response.ok) {
+      throw new Error("Failed to add product to favs");
+    }
+
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+async function removeFromFavs() {
+  try {
+    const response = await fetch(`http://localhost:8080/api/products/removeFromFavs?id_product=${props.id}&id_employee=${userId}`);
+    if (!response.ok) {
+      throw new Error("Failed to remove product from favs");
+    }
+  } catch (error) {
+    console.log(error)
+  }
+}
 
 async function decrementProductQuantity() {
   try {
@@ -38,7 +72,6 @@ async function decrementProductQuantity() {
   }
 }
 
-
 </script>
 
 
@@ -55,7 +88,7 @@ async function decrementProductQuantity() {
         {{ props.quantity <= '0' ? 'manquant' : 'acheter' }} </button>
     </div>
     <div>
-      <img class="fav" :src="isFilled ? filledHeartImage : emptyHeartImage" alt="" @click="toggleHeart" />
+      <img class="fav" :src="!isFav ? emptyHeartImage : filledHeartImage" alt="" @click="toggleHeart" />
     </div>
   </article>
 </template>
